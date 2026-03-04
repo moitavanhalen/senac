@@ -21,7 +21,9 @@ Class aluno{
         return $resultado ->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function pesquisaAluno($ra){
+
+
+    public function pesquisaAluno($pesquisa, $tipo){
         $sql = "SELECT * FROM alunos WHERE ra = :ra";
         $resultado = $this->bd->prepare($sql);
         $resultado->bindParam(":ra", $ra);
@@ -29,6 +31,14 @@ Class aluno{
 
         return $resultado ->fetch(PDO::FETCH_OBJ);
     }
+
+
+
+
+
+
+
+
 
     public function cadastrar(){
         $sql = "INSERT INTO alunos (nome, email, telefone, login, senha) VALUES (:nome, :email, :telefone, :login, :senha)";
@@ -47,5 +57,17 @@ Class aluno{
             return false;
         }
 
+    }
+
+    public function excluir(){
+        $sql = "DELETE FROM alunos WHERE ra = :ra";
+        $stmt = $this->bd->prepare($sql);
+        $stmt->bindParam(":ra", $this->ra, PDO::PARAM_INT);
+
+        if($stmt->execute()){
+            return true;
+        } else {
+            return false;
+        }
     }
 }

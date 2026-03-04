@@ -33,4 +33,13 @@ public function cadastrarAluno($dados){
             exit();
         }
 }
+
+public function excluirAluno($ra){
+        $this->aluno->ra = $ra;
+
+        if($this->aluno->excluir()){
+            header("location: index.php");
+        }
+}
+
 }
